@@ -73,11 +73,16 @@
 
         @media only screen and (max-width: 768px) {
         #lottie{
-      width: 110%;
-      height: 100%;
+        	   display: none!important;
         }
    
     }
+
+           @media only screen and (max-width: 768px) {
+        #lottie1{
+        	margin-top: 80px;
+        	   display: block!important;
+        }}
 
 
     </style>
@@ -184,11 +189,11 @@
 
 
   <section class="hero-area">
-  	  <div id="lottie" class="background">
+  	  <div id="lottie" class="background" style="display: block;">
 
   	  	
   	  </div>
- 
+  	  	<div id="lottie1" class="background" style="display: none;"></div>
     <div class="container">
 
       <div class="hero-inner">
@@ -664,7 +669,23 @@
 
 </script>
 
- 
+  <script type="text/javascript">
+
+  var params = {
+        container: document.getElementById('lottie1'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://raw.githubusercontent.com/Meerazzum-045/Lotfiles/main/brainlight/Lottiemob.json'
+        
+    };
+
+    var anim;
+
+    anim = lottie.loadAnimation(params);
+
+
+</script>
   <script>
     document.getElementById('video').addEventListener('play', function () {
       this.setAttribute('controls', 'true');
