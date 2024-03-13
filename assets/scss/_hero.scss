@@ -1,0 +1,180 @@
+/*--------------------------------------------------------------
+# hero-area
+--------------------------------------------------------------*/
+.hero-area {
+  padding-top: 140px;
+  padding-bottom: 100px;
+  position: relative;
+  // background-image: url("../img/new-hero/bg.jpg");
+  // background-position: bottom right;
+  // background-size: contain;
+  // background-repeat: no-repeat;
+  background-color: #4B28AA;
+  #lottie-animation{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  @media only screen and (max-width: 1199px) {
+    padding-top: 120px;
+    padding-bottom: 100px;
+  }
+@media only screen and (max-width: 991px) {
+  background-image: none;
+  padding-top: 100px;
+}
+  @media only screen and (max-width: 767px) {
+    padding-top: 80px;
+    padding-bottom: 70px;
+  }
+  @media only screen and (max-width: 482px) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+
+  .hero-text {
+    position: relative;
+    h1 {
+      font-size: 49px;
+      font-weight: 900;
+      line-height: 1.3;
+      letter-spacing: 1px;
+      color: $new-title-color;
+      margin-bottom: 20px;
+      @media only screen and (max-width: 1399px) {
+        font-size: 42px;
+      }
+      @media only screen and (max-width: 1199px) {
+        font-size: 36px;
+      }
+      @media only screen and (max-width: 991px) {
+        font-size: 34px;
+        margin-bottom: 16px;
+      }
+      @media only screen and (max-width: 767px) {
+        font-size: 30px;
+      }
+      @media only screen and (max-width: 482px) {
+        font-size: 25px;
+      }
+    }
+    p {
+      font-size: 19px;
+      font-weight: 500;
+      max-width: 580px;
+      margin-bottom: 30px;
+      @media only screen and (max-width: 767px) {
+        font-size: 15px;
+        font-weight: 400;
+        margin-bottom: 25px;
+      }
+    }
+  }
+}
+
+.hero-btns {
+  display: flex;
+  align-items: center;
+  margin-left: -8px;
+  margin-right: -8px;
+  .btn-solid {
+    margin-left: 8px;
+    margin-right: 8px;
+    display: inline-flex;
+    background-color: $primary-color;
+    color: $text-color;
+    text-transform: uppercase;
+    padding: 13px 38px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease-in;
+    @media only screen and (max-width: 767px) {
+      font-size: 15px;
+      padding: 11px 30px;
+    }
+    &:hover,&:focus {
+      background-color: $green-color;
+      color: #000;
+    }
+  }
+
+  .btn-outline {
+    margin-left: 8px;
+    margin-right: 8px;
+    display: inline-flex;
+    border: 1px solid $primary-color;
+    background-color: transparent;
+    color: $text-color;
+    text-transform: uppercase;
+    padding: 13px 38px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    @media only screen and (max-width: 767px) {
+      font-size: 15px;
+      padding: 11px 30px;
+    }
+    &:hover {
+      background-color: $primary-color;
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+  ## page-banner
+--------------------------------------------------------------*/
+
+.page-banner {
+  padding-top: 190px;
+  padding-bottom: 130px;
+  background: #3d1f94;
+  background-image: url("../img/hero/banner-img-2.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  @media only screen and (max-width: 767px) {
+    padding-top: 140px;
+    padding-bottom: 80px;
+  }
+  .page-inner {
+    text-align: center;
+    h1 {
+      font-size: 44px;
+      color: $new-title-color;
+      @media only screen and (max-width: 767px) {
+        font-size: 35px;
+      }
+    }
+  }
+  ul{
+    list-style: none;
+    margin: auto;
+    padding: 0;
+    background-color: rgba(8, 1, 1, 0.6);
+    display: inline-block;
+    padding: 6px 18px;
+    margin-top: 20px;
+    li{
+      &:not(:last-child) {
+       margin-right: 16px; 
+      }
+      display: inline-block;
+    }
+    a{
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      color: $text-color;
+      text-transform: uppercase;
+      &.act{
+        color: $primary-color;
+      }
+    }
+  }
+}
