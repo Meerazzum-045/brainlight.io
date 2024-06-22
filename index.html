@@ -45,7 +45,9 @@
         }], "markers": []
     };
 
-    function createAnimation(x, y) {
+    var touchAnimations = {};
+
+    function createAnimation(id, x, y) {
         var container = document.createElement('div');
         container.className = 'lottie-animation';
         container.style.left = (x - 150) + 'px'; // Center the animation
@@ -55,20 +57,56 @@
         var params = {
             container: container,
             renderer: 'svg',
-            loop: false,
+            loop: true, // Loop the animation while touch is active
             autoplay: true,
             animationData: animationData
         };
 
         var anim = lottie.loadAnimation(params);
-        anim.addEventListener('complete', function() {
-            document.body.removeChild(container); // Remove the animation after it completes
-        });
+        touchAnimations[id] = { container: container, animation: anim };
+    }
+
+    function removeAnimation(id) {
+        if (touchAnimations[id]) {
+            var container = touchAnimations[id].container;
+            var anim = touchAnimations[id].animation;
+            anim.destroy(); // Destroy the animation instance
+            document.body.removeChild(container); // Remove the container
+            delete touchAnimations[id];
+        }
     }
 
     document.addEventListener('touchstart', function(event) {
-        for (var i = 0; i < event.touches.length; i++) {
-            createAnimation(event.touches[i].clientX, event.touches[i].clientY);
+        var touches = event.touches;
+        for (var i = 0; i < Math.min(touches.length, 5); i++) {
+            if (!touchAnimations[touches[i].identifier]) {
+                createAnimation(touches[i].identifier, touches[i].clientX, touches[i].clientY);
+            }
+        }
+    });
+
+    document.addEventListener('touchmove', function(event) {
+        var touches = event.touches;
+        for (var i = 0; i < touches.length; i++) {
+            if (touchAnimations[touches[i].identifier]) {
+                var container = touchAnimations[touches[i].identifier].container;
+                container.style.left = (touches[i].clientX - 150) + 'px'; // Update position
+                container.style.top = (touches[i].clientY - 150) + 'px'; // Update position
+            }
+        }
+    });
+
+    document.addEventListener('touchend', function(event) {
+        var changedTouches = event.changedTouches;
+        for (var i = 0; i < changedTouches.length; i++) {
+            removeAnimation(changedTouches[i].identifier);
+        }
+    });
+
+    document.addEventListener('touchcancel', function(event) {
+        var changedTouches = event.changedTouches;
+        for (var i = 0; i < changedTouches.length; i++) {
+            removeAnimation(changedTouches[i].identifier);
         }
     });
 </script>
