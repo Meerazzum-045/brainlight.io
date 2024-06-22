@@ -50,7 +50,7 @@
     var touchAnimations = {};
 
     function createAnimation(id, x, y) {
-        if (Object.keys(touchAnimations).length >= 5) return; // Limit to 5 touches
+        if (Object.keys(touchAnimations).length >= 5 || touchAnimations[id]) return; // Limit to 5 touches and prevent recreation
 
         var container = document.createElement('div');
         container.className = 'lottie-animation';
@@ -61,7 +61,7 @@
         var params = {
             container: container,
             renderer: 'svg',
-            loop: false, // Loop the animation while touch is active
+            loop: true, // Loop the animation while touch is active
             autoplay: true,
             animationData: animationData
         };
