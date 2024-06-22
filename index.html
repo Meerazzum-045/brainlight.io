@@ -5,21 +5,15 @@
     <style>
         body {
             background-color: hsl(25, 100%, 49%);
-            margin: 0px;
+            margin: 0;
             height: 100%;
             overflow: hidden;
         }
         .lottie-animation {
-            background-color: transparent;
-            display: block;
-            overflow: hidden;
-            transform: translate3d(0, 0, 0);
-            text-align: center;
-            opacity: 1;
-            position: absolute; /* Make the position absolute */
-            pointer-events: none; /* Allow clicks to pass through the container */
-            width: 300px; /* Set fixed width for animation container */
-            height: 300px; /* Set fixed height for animation container */
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            transform: translate(-50%, -50%);
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
@@ -54,8 +48,8 @@
 
         var container = document.createElement('div');
         container.className = 'lottie-animation';
-        container.style.left = (x - 150) + 'px'; // Center the animation
-        container.style.top = (y - 150) + 'px'; // Center the animation
+        container.style.left = x + 'px'; // Set the initial position
+        container.style.top = y + 'px'; // Set the initial position
         document.body.appendChild(container);
 
         var params = {
@@ -73,8 +67,8 @@
     function updateAnimationPosition(id, x, y) {
         if (touchAnimations[id]) {
             var container = touchAnimations[id].container;
-            container.style.left = (x - 150) + 'px'; // Update position
-            container.style.top = (y - 150) + 'px'; // Update position
+            container.style.left = x + 'px'; // Update position
+            container.style.top = y + 'px'; // Update position
         }
     }
 
@@ -105,16 +99,16 @@
     });
 
     document.addEventListener('touchend', function(event) {
-        var changedTouches = event.changedTouches;
-        for (var i = 0; i < changedTouches.length; i++) {
-            removeAnimation(changedTouches[i].identifier);
+        var touches = event.changedTouches;
+        for (var i = 0; i < touches.length; i++) {
+            removeAnimation(touches[i].identifier);
         }
     });
 
     document.addEventListener('touchcancel', function(event) {
-        var changedTouches = event.changedTouches;
-        for (var i = 0; i < changedTouches.length; i++) {
-            removeAnimation(changedTouches[i].identifier);
+        var touches = event.changedTouches;
+        for (var i = 0; i < touches.length; i++) {
+            removeAnimation(touches[i].identifier);
         }
     });
 </script>
