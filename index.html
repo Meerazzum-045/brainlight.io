@@ -60,7 +60,14 @@
 
         // Set unique color
         var uniqueColor = getNextColor();
-    
+
+
+        animationDataCopy.layers[0].shapes[2].it[2].c.k = uniqueColor;
+        animationDataCopy.layers[0].shapes[2].it[1].c.k = uniqueColor;
+
+        animationDataCopy.layers[0].shapes[1].it[2].c.k = uniqueColor;
+        animationDataCopy.layers[0].shapes[1].it[1].c.k = uniqueColor;
+
         animationDataCopy.layers[0].shapes[0].it[2].c.k = uniqueColor;
         animationDataCopy.layers[0].shapes[0].it[1].c.k = uniqueColor;
 
@@ -75,7 +82,7 @@
             renderer: 'svg',
             loop: false, // Only play once
             autoplay: true,
-            animationData: animationDataCopy
+            path:"https://raw.githubusercontent.com/Meerazzum-045/brainlight.io/main/C.json"
         };
 
         var anim = lottie.loadAnimation(params);
