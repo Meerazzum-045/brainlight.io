@@ -70,6 +70,14 @@
         touchAnimations[id] = { container: container, animation: anim };
     }
 
+    function updateAnimationPosition(id, x, y) {
+        if (touchAnimations[id]) {
+            var container = touchAnimations[id].container;
+            container.style.left = (x - 150) + 'px'; // Update position
+            container.style.top = (y - 150) + 'px'; // Update position
+        }
+    }
+
     function removeAnimation(id) {
         if (touchAnimations[id]) {
             var container = touchAnimations[id].container;
@@ -92,11 +100,7 @@
     document.addEventListener('touchmove', function(event) {
         var touches = event.touches;
         for (var i = 0; i < touches.length; i++) {
-            if (touchAnimations[touches[i].identifier]) {
-                var container = touchAnimations[touches[i].identifier].container;
-                container.style.left = (touches[i].clientX - 150) + 'px'; // Update position
-                container.style.top = (touches[i].clientY - 150) + 'px'; // Update position
-            }
+            updateAnimationPosition(touches[i].identifier, touches[i].clientX, touches[i].clientY);
         }
     });
 
