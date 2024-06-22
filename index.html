@@ -11,11 +11,12 @@
         }
         .lottie-animation {
             position: absolute;
-            width: 300px; /* Fixed width */
-            height: 300px; /* Fixed height */
+            width: 300px;
+            height: 300px;
             transform: translate(-50%, -50%);
         }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
 </head>
 <body>
@@ -48,14 +49,14 @@
 
         var container = document.createElement('div');
         container.className = 'lottie-animation';
-        container.style.left = x + 'px'; // Set initial position based on touch
-        container.style.top = y + 'px'; // Set initial position based on touch
+        container.style.left = x + 'px'; // Set the initial position
+        container.style.top = y + 'px'; // Set the initial position
         document.body.appendChild(container);
 
         var params = {
             container: container,
             renderer: 'svg',
-            loop: false, // Loop the animation while touch is active
+            loop: false, // Only play once
             autoplay: true,
             animationData: animationData
         };
@@ -67,8 +68,8 @@
     function updateAnimationPosition(id, x, y) {
         if (touchAnimations[id]) {
             var container = touchAnimations[id].container;
-            container.style.left = x + 'px'; // Update position based on touch
-            container.style.top = y + 'px'; // Update position based on touch
+            container.style.left = x + 'px'; // Update position
+            container.style.top = y + 'px'; // Update position
         }
     }
 
@@ -77,7 +78,7 @@
             var container = touchAnimations[id].container;
             var anim = touchAnimations[id].animation;
             anim.destroy(); // Destroy the animation instance
-            document.body.removeChild(container); // Remove the container from DOM
+            document.body.removeChild(container); // Remove the container
             delete touchAnimations[id];
         }
     }
