@@ -24,8 +24,16 @@
 <body>
 
 <script>
-    
+    var colors = ['#284B63', '#FF0080', '#76605E', '#FDFD96', '#355B41'];
     var touchAnimations = {};
+
+    function getRandomColor() {
+        // Ensure each color is used only once
+        var colorIndex = Math.floor(Math.random() * colors.length);
+        var color = colors[colorIndex];
+        colors.splice(colorIndex, 1); // Remove the color from the array
+        return color;
+    }
 
     function createAnimation(id, x, y) {
         if (Object.keys(touchAnimations).length >= 5 || touchAnimations[id]) return; // Limit to 5 touches and prevent recreation
@@ -45,7 +53,10 @@
         };
 
         var anim = lottie.loadAnimation(params);
-        touchAnimations[id] = { container: container, animation: anim };
+        var color = getRandomColor();
+        container.style.backgroundColor = color; // Set background color
+
+        touchAnimations[id] = { container: container, animation: anim, color: color };
     }
 
     function updateAnimationPosition(id, x, y) {
@@ -60,6 +71,8 @@
         if (touchAnimations[id]) {
             var container = touchAnimations[id].container;
             var anim = touchAnimations[id].animation;
+            var color = touchAnimations[id].color;
+            colors.push(color); // Add the color back to the array
             anim.destroy(); // Destroy the animation instance
             document.body.removeChild(container); // Remove the container
             delete touchAnimations[id];
