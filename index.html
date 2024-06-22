@@ -58,7 +58,7 @@
 
     anim = lottie.loadAnimation(params);
 
-    document.addEventListener('click', function (event) {
+    document.addEventListener('touchstart', function (event) {
         var lottieContainer = document.getElementById('lottie');
         lottieContainer.style.left = (event.clientX - lottieContainer.offsetWidth / 2) + 'px';
         lottieContainer.style.top = (event.clientY - lottieContainer.offsetHeight / 2) + 'px';
