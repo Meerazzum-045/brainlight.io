@@ -9,7 +9,7 @@
             height: 100%;
             overflow: hidden;
         }
-        #lottie {
+        .lottie-animation {
             background-color: transparent;
             display: block;
             overflow: hidden;
@@ -23,8 +23,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
 </head>
 <body>
-
-<div id="lottie"></div>
 
 <script>
     var animationData = {
@@ -46,24 +44,32 @@
             }], "ip": 0, "op": 300.00001221925, "st": 0, "bm": 0
         }], "markers": []
     };
-    var params = {
-        container: document.getElementById('lottie'),
-        renderer: 'svg',
-        loop: false, // Change to false to avoid infinite loop on click
-        autoplay: false, // Change to false to control playback manually
-        animationData: animationData
-    };
 
-    var anim = lottie.loadAnimation(params);
+    function createAnimation(x, y) {
+        var container = document.createElement('div');
+        container.className = 'lottie-animation';
+        container.style.left = (x - 150) + 'px'; // Center the animation
+        container.style.top = (y - 150) + 'px'; // Center the animation
+        document.body.appendChild(container);
 
-    document.addEventListener('touchstart', function (event) {
-        var lottieContainer = document.getElementById('lottie');
-        var touch = event.touches[0];
-        lottieContainer.style.left = (touch.clientX - lottieContainer.offsetWidth / 2) + 'px';
-        lottieContainer.style.top = (touch.clientY - lottieContainer.offsetHeight / 2) + 'px';
-        
-        anim.goToAndStop(0, true); // Reset the animation to the beginning
-        anim.play(); // Play the animation
+        var params = {
+            container: container,
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            animationData: animationData
+        };
+
+        var anim = lottie.loadAnimation(params);
+        anim.addEventListener('complete', function() {
+            document.body.removeChild(container); // Remove the animation after it completes
+        });
+    }
+
+    document.addEventListener('touchstart', function(event) {
+        for (var i = 0; i < event.touches.length; i++) {
+            createAnimation(event.touches[i].clientX, event.touches[i].clientY);
+        }
     });
 </script>
 </body>
