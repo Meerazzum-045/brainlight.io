@@ -91,7 +91,7 @@
 
     function onAnimationComplete(anim) {
         completedAnimations.push(anim);
-        if (completedAnimations.length === 5) {
+        if (completedAnimations.length <= 5) {
             // Randomly select 1 animation to persist
             const randomIndex = Math.floor(Math.random() * completedAnimations.length);
             const remainingAnimation = completedAnimations[randomIndex];
