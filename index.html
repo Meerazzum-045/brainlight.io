@@ -75,6 +75,7 @@
             loop: false, // Only play once
             autoplay: true,
             animationData: animationDataCopy
+            onComplete: onAnimationComplete
         };
 
         var anim = lottie.loadAnimation(params);
@@ -98,6 +99,17 @@
             delete touchAnimations[id];
         }
     }
+
+function onAnimationComplete() {
+    var remainingAnimations = Object.keys(touchAnimations);
+    // Randomly select one animation to keep
+    chosenAnimationId = remainingAnimations[Math.floor(Math.random() * remainingAnimations.length)];
+    remainingAnimations.forEach(function(id) {
+        if (id !== chosenAnimationId) {
+            removeAnimation(id);
+        }
+    });
+}
 
     document.addEventListener('touchstart', function(event) {
         event.preventDefault(); // Prevent scrolling and zooming
