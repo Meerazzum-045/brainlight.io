@@ -49,7 +49,10 @@
     }
 
     var touchAnimations = {};
+    let touchCount = 0;
     var activeAnimations = [];
+      let animations = [];
+      let completedAnimations = [];
 
     function createAnimation(id, x, y) {
         if (Object.keys(touchAnimations).length >= 5 || touchAnimations[id]) return; // Limit to 5 touches and prevent recreation
@@ -75,15 +78,15 @@
             renderer: 'svg',
             loop: false, // Only play once
             autoplay: true,
-            animationData: animationDataCopy,
-            onComplete: onAnimationComplete
+            animationData: animationDataCopy
+
         };
 
         var anim = lottie.loadAnimation(params);
   
         touchAnimations[id] = { container: container, animation: anim };
-        activeAnimations.push(id);
-        
+      animations.push(animation);
+
     }
 
     function updateAnimationPosition(id, x, y) {
@@ -105,24 +108,28 @@ function removeAnimation(id) {
 }
 
 function onAnimationComplete() {
-    // Choose a random animation to keep
-    var remainingAnimations = activeAnimations.slice(); // Copy the array
-    var randomIndex = Math.floor(Math.random() * remainingAnimations.length);
-    var chosenId = remainingAnimations[randomIndex];
 
-    // Remove all other animations
-    for (var i = 0; i < remainingAnimations.length; i++) {
-        var id = remainingAnimations[i];
-        if (id !== chosenId) {
-            removeAnimation(id);
-        }
-    }
+          document.addEventListener('complete', function () {
+            completedAnimations.push(animation);
+            if (touchCount <= 5) {
+              // Randomly select 1 animation to persist
+              const randomIndex = Math.floor(Math.random() * completedAnimations.length);
+              const remainingAnimation = completedAnimations[randomIndex];
 
-    // Clear the active animations array
-    activeAnimations = [];
+              // Timeout for other animations
+              for (let i = 0; i < completedAnimations.length; i++) {
+                if (i !== randomIndex) {
+                  const animToTimeout = completedAnimations[i];
+                  setTimeout(() => {
+                    animToTimeout.destroy();
+                  }); // Adjust timeout delay as needed
+                }
+              }
 
-    // Push the chosen animation ID back to active animations
-    activeAnimations.push(chosenId);
+              // Clear completedAnimations except the remainingAnimation
+              completedAnimations = [remainingAnimation];
+            }
+          });
 }
 
 
@@ -132,10 +139,34 @@ function onAnimationComplete() {
         for (var i = 0; i < touches.length; i++) {
             if (!touchAnimations[touches[i].identifier]) {
                 createAnimation(touches[i].identifier, touches[i].clientX, touches[i].clientY);
+                touchCount++;
             }
         }
     });
-    
+
+    document.addEventListener('touchmove', function(event) {
+        event.preventDefault(); // Prevent scrolling and zooming
+        var touches = event.touches;
+        for (var i = 0; i < touches.length; i++) {
+            updateAnimationPosition(touches[i].identifier, touches[i].clientX, touches[i].clientY);
+        }
+    });
+
+    document.addEventListener('touchend', function(event) {
+        event.preventDefault(); // Prevent scrolling and zooming
+        var touches = event.changedTouches;
+        for (var i = 0; i < touches.length; i++) {
+            removeAnimation(touches[i].identifier);
+        }
+    });
+
+    document.addEventListener('touchcancel', function(event) {
+        event.preventDefault(); // Prevent scrolling and zooming
+        var touches = event.changedTouches;
+        for (var i = 0; i < touches.length; i++) {
+            removeAnimation(touches[i].identifier);
+        }
+    });
 </script>
 </body>
 </html>
