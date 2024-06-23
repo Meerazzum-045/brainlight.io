@@ -82,6 +82,11 @@
         var anim = lottie.loadAnimation(params);
         touchAnimations[id] = { container: container, animation: anim };
         activeAnimations.push(id);
+                 // Add complete event listener
+        anim.addEventListener('complete', function() {
+        // Call removeAnimation to destroy the animation
+        removeAnimation(id);
+    });
     }
 
     function updateAnimationPosition(id, x, y) {
