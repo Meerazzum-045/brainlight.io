@@ -80,13 +80,10 @@
         };
 
         var anim = lottie.loadAnimation(params);
+  
         touchAnimations[id] = { container: container, animation: anim };
         activeAnimations.push(id);
-                 // Add complete event listener
-        anim.addEventListener('complete', function() {
-        // Call removeAnimation to destroy the animation
-        removeAnimation(id);
-    });
+        
     }
 
     function updateAnimationPosition(id, x, y) {
@@ -138,30 +135,7 @@ function onAnimationComplete() {
             }
         }
     });
-
-    document.addEventListener('touchmove', function(event) {
-        event.preventDefault(); // Prevent scrolling and zooming
-        var touches = event.touches;
-        for (var i = 0; i < touches.length; i++) {
-            updateAnimationPosition(touches[i].identifier, touches[i].clientX, touches[i].clientY);
-        }
-    });
-
-    document.addEventListener('touchend', function(event) {
-        event.preventDefault(); // Prevent scrolling and zooming
-        var touches = event.changedTouches;
-        for (var i = 0; i < touches.length; i++) {
-            removeAnimation(touches[i].identifier);
-        }
-    });
-
-    document.addEventListener('touchcancel', function(event) {
-        event.preventDefault(); // Prevent scrolling and zooming
-        var touches = event.changedTouches;
-        for (var i = 0; i < touches.length; i++) {
-            removeAnimation(touches[i].identifier);
-        }
-    });
+    
 </script>
 </body>
 </html>
