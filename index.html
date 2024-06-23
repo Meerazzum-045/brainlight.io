@@ -49,6 +49,7 @@
     }
 
     var touchAnimations = {};
+    var activeAnimations = [];
 
     function createAnimation(id, x, y) {
         if (Object.keys(touchAnimations).length >= 5 || touchAnimations[id]) return; // Limit to 5 touches and prevent recreation
@@ -80,6 +81,7 @@
 
         var anim = lottie.loadAnimation(params);
         touchAnimations[id] = { container: container, animation: anim };
+        activeAnimations.push(id);
     }
 
     function updateAnimationPosition(id, x, y) {
@@ -90,26 +92,37 @@
         }
     }
 
-    function removeAnimation(id) {
-        if (touchAnimations[id]) {
-            var container = touchAnimations[id].container;
-            var anim = touchAnimations[id].animation;
-            anim.destroy(); // Destroy the animation instance
-            document.body.removeChild(container); // Remove the container
-            delete touchAnimations[id];
+function removeAnimation(id) {
+    if (touchAnimations[id]) {
+        var container = touchAnimations[id].container;
+        var anim = touchAnimations[id].animation;
+        anim.destroy();
+        document.body.removeChild(container);
+        delete touchAnimations[id];
+    }
+}
+
+function onAnimationComplete() {
+    // Choose a random animation to keep
+    var remainingAnimations = activeAnimations.slice(); // Copy the array
+    var randomIndex = Math.floor(Math.random() * remainingAnimations.length);
+    var chosenId = remainingAnimations[randomIndex];
+
+    // Remove all other animations
+    for (var i = 0; i < remainingAnimations.length; i++) {
+        var id = remainingAnimations[i];
+        if (id !== chosenId) {
+            removeAnimation(id);
         }
     }
 
-function onAnimationComplete() {
-    var remainingAnimations = Object.keys(touchAnimations);
-    // Randomly select one animation to keep
-    chosenAnimationId = remainingAnimations[Math.floor(Math.random() * remainingAnimations.length)];
-    remainingAnimations.forEach(function(id) {
-        if (id !== chosenAnimationId) {
-            removeAnimation(id);
-        }
-    });
+    // Clear the active animations array
+    activeAnimations = [];
+
+    // Push the chosen animation ID back to active animations
+    activeAnimations.push(chosenId);
 }
+
 
     document.addEventListener('touchstart', function(event) {
         event.preventDefault(); // Prevent scrolling and zooming
