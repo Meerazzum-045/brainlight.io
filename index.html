@@ -1,84 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lottie Animation Example</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
-
-    .animation-container {
-      width: 200px;
-      height: 200px;
-      position: absolute;
-      overflow: hidden;
-      pointer-events: none; /* Prevent interaction with the container */
-    }
-  </style>
+    <style>
+        body {
+            background-color: hsl(25, 100%, 49%);
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+            touch-action: none; /* Prevent zoom and pan */
+        }
+        .lottie-animation {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Prevent animations from capturing touch events */
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.6/lottie.min.js"></script>
 </head>
 <body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js"></script>
-  <div id="animation-container" class="animation-container"></div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      let touchCount = 0;
-      let animations = [];
-      let completedAnimations = [];
+<script>
+  var animationData = {"v":"5.8.1","fr":29.9700012207031,"ip":0,"op":121.000004928431,"w":200,"h":200,"nm":"Comp 1","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Logo","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[101.5,100.5,0],"ix":2,"l":2},"a":{"a":0,"k":[246,247.5,0],"ix":1,"l":2},"s":{"a":0,"k":[25,25,100],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[3.419,-3.584],[-7.284,0.697],[-5.415,-2.741],[6.441,-3.604],[-0.29,-0.669],[-4.921,2.044],[-3.177,-7.943],[-1.88,-4.146],[0,0],[0.079,-0.707],[-7.023,-0.901],[0.251,-8.321],[0,-3.914],[12.476,1.007],[2.828,13.6],[21.601,-4.959],[-17.087,-2.499]],"o":[[-2.975,3.129],[8.543,-3.032],[4.321,-0.417],[-7.971,4.456],[0.29,0.668],[5.114,-1.579],[8.233,-3.429],[1.414,3.536],[0,0],[-0.078,0.707],[6.985,1.23],[8.495,1.095],[-0.135,4.436],[-12.641,-3.652],[-13.077,-1.056],[-3.565,-17.155],[4.582,-15.111],[0,0]],"v":[[-3.404,-34.124],[-12.489,-24.593],[10.312,-32.167],[24.85,-25.29],[3.997,-13.628],[4.878,-11.622],[20.183,-16.447],[36.737,-9.317],[41.735,1.783],[13.325,1.783],[13.101,3.905],[34.054,7.518],[45.938,21.631],[45.91,34.427],[8.684,24.227],[-13.109,5.91],[-46.189,-8.649],[-3.404,-34.115]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.196078446332,0.61568627451,0.345098039216,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[294.361,34.434],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Group 1","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[15.644,-6.684],[-0.145,-4.708],[-11.517,2.344],[-6.025,0.959]],"o":[[-3.865,-19.43],[2.771,4.319],[0.368,11.73],[5.347,-1.085],[0,0]],"v":[[51.161,-94.126],[9.751,-119.174],[17.985,-105.604],[34.365,-91.413],[51.171,-94.126]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ind":1,"ty":"sh","ix":2,"ks":{"a":0,"k":{"i":[[0,0],[-0.93,-7.962],[-0.785,-0.02],[-0.155,5.773],[-7.72,-0.31],[-9.454,0],[2.683,-7.797],[-0.659,-0.29],[-3.4,6.083],[-4.882,-1.666],[-8.262,-2.596],[5.202,-7.274],[-0.591,-0.465],[-5.541,5.279],[-4.058,-3.526],[-6.587,-5.396],[6.964,-6.49],[-0.543,-0.649],[-9.027,5.909],[-3.186,-6.374],[-4.611,0.736],[-6.17,-0.087],[-9.725,-18.424],[-1.268,-3.971],[-15.914,-22.647],[0.842,-16.563],[1.51,-4.562],[4.098,3.352],[2.47,2.615],[3.835,3.264],[-10.984,-7.681],[-3.728,-1.937],[-3.748,-1.657],[30.261,3.661],[-19.674,-0.503],[6.53,-1.773],[5.22,-1.802],[4.243,-9.192],[1.366,-2.907],[-9.966,23.838],[13.261,2.819],[11.779,4.078],[5.57,15.179],[1.355,3.816],[-14.025,-9.997],[-19.373,-4.194],[-0.611,-6.8],[-15.121,-23.015],[-19.558,-10.567],[-1.976,1.966],[-7.884,42.204],[65.78,53.45],[-0.989,8.107],[1.065,6.063],[1.618,5.986],[-25.698,-33.186],[-6.869,-36.953],[102.366,-47.164],[72.125,90.887],[-41.835,67.185],[-5.618,-16.825],[0.882,-3.119],[-19.208,-46.146],[-17.61,-17.814],[-1.87,-1.617],[-72.018,63.553],[6.422,25.746],[-15.43,-8.311],[21.813,2.315],[-18.375,-13.939],[-0.571,0.523],[3.865,4.272],[20.709,-38.862],[-9.008,-20.332],[-7.875,-12.205],[-2.005,-2.364],[-13.387,50.544],[-5.376,0.271],[-0.097,0.601],[6.413,1.724],[-4.117,10.335],[-4.873,-3.022],[-0.368,0.417],[5.231,6.093],[-9.367,9.105],[-3.09,-5.511],[-0.64,0.271],[1.501,3.972],[-5.763,2.024],[-8.66,3.07]],"o":[[1.133,9.686],[0.775,0.02],[0.436,-5.764],[0.194,-7.129],[8.853,0.358],[-3.129,9.086],[0.659,0.291],[3.429,-6.073],[2.373,-4.252],[7.623,2.606],[-5.947,8.311],[0.591,0.465],[5.598,-5.221],[3.594,-3.419],[6.297,5.473],[-7.886,7.352],[0.532,0.649],[7.758,-5.086],[4.041,6.858],[1.909,3.826],[6.063,-0.969],[20.564,0.29],[1.967,3.729],[8.486,26.541],[9.086,12.932],[-0.233,4.631],[-4.601,-2.741],[-2.692,-2.208],[-3.226,-3.42],[-7.923,13.425],[3.448,2.412],[3.691,1.917],[-3.1,9.647],[4.378,6.016],[-2.849,7.1],[-5.366,1.453],[-9.929,3.429],[-1.289,2.79],[-6.907,-9.832],[-13.473,-2.839],[-12.282,-2.616],[-15.527,-5.376],[-1.23,-3.342],[-9.813,16.157],[16.245,11.575],[6.625,1.434],[2.43,27.326],[12.708,19.344],[1.753,0.949],[30.424,-30.29],[15.586,-83.42],[-6.054,-4.921],[0.736,-6.006],[-1.056,-6.015],[15.538,0.629],[23.083,29.805],[21.232,114.232],[-105.021,48.392],[-68.541,-86.365],[5.773,16.05],[0.939,2.8],[-13.474,47.793],[9.59,23.025],[1.695,1.714],[-4.659,-92.34],[-18.907,-10.064],[21.243,-5.182],[-10.558,-17.193],[23.799,-10.965],[0.571,-0.523],[-3.526,-4.582],[-30.134,-33.331],[-10.742,20.167],[5.822,13.135],[1.482,2.296],[-43.928,3.186],[5.163,-0.261],[0.087,-0.601],[-4.892,-1.317],[4.146,-10.393],[6.189,3.845],[0.368,-0.417],[-4.165,-4.853],[9.192,-8.931],[4.155,7.4],[0.639,-0.271],[-1.114,-4.127],[-2.305,-6.083],[8.069,-2.829],[0,0]],"v":[[-109.314,-242.947],[-106.321,-217.337],[-103.986,-217.269],[-102.737,-234.559],[-92.043,-245.136],[-64.863,-245.049],[-73.358,-220.378],[-71.382,-219.507],[-61.105,-237.717],[-50.653,-241.902],[-27.028,-234.424],[-43.379,-211.564],[-41.615,-210.169],[-24.829,-225.851],[-13.816,-226.345],[5.655,-210.333],[-16.159,-190.011],[-14.551,-188.074],[9.993,-204.153],[21.162,-184.926],[29.483,-180.247],[47.984,-181.177],[93.849,-153.648],[99.331,-142.267],[137.68,-69.522],[153.528,-26.04],[149.198,-12.343],[135.539,-20.732],[129.312,-29.652],[118.366,-39.135],[122.802,-11.084],[133.631,-4.584],[144.984,0.492],[110.161,6.72],[140.897,15.147],[126.579,27.856],[110.191,31.159],[90.285,51.762],[86.323,60.238],[90.662,11.428],[50.667,2.991],[13.926,-5.204],[-16.373,-38.264],[-20.111,-48.783],[-6.774,2.429],[46.735,25.957],[56.528,37.116],[82.71,112.767],[134.436,153.518],[142.737,150.438],[202.453,42.085],[125.892,-163.567],[117.533,-180.877],[116.07,-199.291],[111.372,-217.133],[196.012,-148.35],[241.074,-47.815],[103.488,222.273],[-193.76,150.7],[-214.141,-119.591],[-196.56,-70.084],[-197.674,-60.407],[-190.923,80.676],[-150.356,142.234],[-144.834,147.037],[-54.77,-89.961],[-100.48,-136.581],[-50.382,-119.901],[-95.84,-153.154],[-34.641,-139.235],[-32.917,-140.804],[-43.524,-154.52],[-142.461,-143.962],[-144.04,-82.066],[-121.025,-45.141],[-115.494,-38.554],[-191.562,-156.671],[-175.647,-157.474],[-175.376,-159.276],[-191.571,-163.635],[-179.463,-194.021],[-163.529,-184.132],[-162.415,-185.371],[-175.976,-201.17],[-148.534,-227.837],[-138.199,-209.413],[-136.271,-210.217],[-139.681,-222.558],[-134.092,-234.162],[-109.324,-242.947]],"c":true},"ix":2},"nm":"Path 2","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.196078446332,0.61568627451,0.345098039216,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[245.511,249.554],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Group 2","np":3,"cix":2,"bm":0,"ix":2,"mn":"ADBE Vector Group","hd":false},{"ty":"tr","p":{"a":0,"k":[245.511,247.503],"ix":2},"a":{"a":0,"k":[245.511,247.503],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.242,0.242],"y":[1.002,1.002]},"o":{"x":[0.333,0.333],"y":[0,0]},"t":0,"s":[0,0]},{"t":15.0000006109625,"s":[100,100]}],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Group 1","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":300.00001221925,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"#C","ln":"C","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":8,"s":[0]},{"t":11.0000004480392,"s":[100]}],"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[101,101,0],"ix":2,"l":2},"a":{"a":0,"k":[-2,-12,0],"ix":1,"l":2},"s":{"a":0,"k":[100,100,100],"ix":6,"l":2}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[156,156],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"tm","s":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":90,"s":[0]},{"t":120.0000048877,"s":[45]}],"ix":1},"e":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":0,"s":[0]},{"t":30.0000012219251,"s":[45]}],"ix":2},"o":{"a":1,"k":[{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.333],"y":[0]},"t":0,"s":[0]},{"t":120.0000048877,"s":[1440]}],"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim","hd":false},{"ty":"st","c":{"a":0,"k":[0.196077997544,0.615685975318,0.345097979377,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":15,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"tr","p":{"a":0,"k":[-2,-12],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.242,0.242],"y":[1.002,1.002]},"o":{"x":[0.333,0.333],"y":[0,0]},"t":2,"s":[0,0]},{"t":17.0000006924242,"s":[100,100]}],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Ellipse 3","np":3,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[156,156],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"st","c":{"a":0,"k":[0.196077997544,0.615685975318,0.345097979377,1],"ix":3},"o":{"a":0,"k":30,"ix":4},"w":{"a":0,"k":15,"ix":5},"lc":1,"lj":1,"ml":4,"bm":0,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"tr","p":{"a":0,"k":[-2,-12],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.242,0.242],"y":[1.002,1.002]},"o":{"x":[0.333,0.333],"y":[0,0]},"t":2,"s":[0,0]},{"t":17.0000006924242,"s":[100,100]}],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Ellipse 2","np":2,"cix":2,"bm":0,"ix":2,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":300.00001221925,"st":0,"bm":0}],"markers":[]};
+     var colors = ["#284B63", "#FF0080", "#76605E", "#FDFD96", "#355b41"];
+    var colorIndex = 0;
 
-      document.addEventListener('touchstart', function (event) {
-        if (touchCount < 5) {
-          touchCount++;
-          const touch = event.touches[0];
-          const animationContainer = document.createElement('div');
-          animationContainer.className = 'animation-container';
-
-          // Position the container centered on the touch point
-          animationContainer.style.left = `${touch.clientX - 100}px`;
-          animationContainer.style.top = `${touch.clientY - 100}px`;
-          document.body.appendChild(animationContainer);
-
-          const animation = lottie.loadAnimation({
-            container: animationContainer,
-            renderer: 'svg',
-            loop: false,
-            autoplay: true,
-            path: 'https://raw.githubusercontent.com/Meerazzum-045/brainlight.io/main/C.json' // Replace with your Lottie animation file
-          });
-
-          animations.push(animation);
-
-          animation.addEventListener('complete', function () {
-            completedAnimations.push(animation);
-            if (touchCount <= 5) {
-              // Randomly select 1 animation to persist
-              const randomIndex = Math.floor(Math.random() * completedAnimations.length);
-              const remainingAnimation = completedAnimations[randomIndex];
-
-              // Timeout for other animations
-              for (let i = 0; i < completedAnimations.length; i++) {
-                if (i !== randomIndex) {
-                  const animToTimeout = completedAnimations[i];
-                  setTimeout(() => {
-                    animToTimeout.destroy();
-                  }); // Adjust timeout delay as needed
-                }
-              }
-
-              // Clear completedAnimations except the remainingAnimation
-              completedAnimations = [remainingAnimation];
-            }
-          });
+    // Shuffle colors array
+    function shuffleColors(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
         }
-      });
+    }
+    shuffleColors(colors);
+
+    function getNextColor() {
+        const color = colors[colorIndex];
+        colorIndex = (colorIndex + 1) % colors.length;
+        // Convert hex color to [r, g, b, a]
+        var r = parseInt(color.slice(1, 3), 16) / 255;
+        var g = parseInt(color.slice(3, 5), 16) / 255;
+        var b = parseInt(color.slice(5, 7), 16) / 255;
+        return [r, g, b, 1];
+    }
+
+    var touchAnimations = {};
+    var completedAnimations = [];
+    var touchCount = 0;
+
+    function createAnimation(id, x, y) {
+        if (Object.keys(touchAnimations).length >= 5 || touchAnimations[id]) return; // Limit to 5 touches and prevent recreation
+
+        // Clone the animation data to avoid modifying the original
+        var animationDataCopy = JSON.parse(JSON.stringify(animationData));
+
+        // Set unique color
+        var uniqueColor = getNextColor();
+        animationDataCopy.layers[0].shapes[0].it[0].it[1].c.k = uniqueColor; 
+        animationDataCopy.layers[0].shapes[0].it[1].it[2].c.k = uniqueColor;        
+        animationDataCopy.layers[1].shapes[0].it[2].c.k = uniqueColor; // Stroke color
+        animationDataCopy.layers[1].shapes[1].it[1].c.k = uniqueColor; // Stroke color
+
+        var container = document.createElement('div');
+        container.className = 'lottie-animation';
+        container.style.left = x + 'px'; // Set the initial position
+        container.style.top = y + 'px'; // Set the initial position
+        document.body.appendChild(container);
+
+        var params = {
+            container: container,
+            renderer: 'svg',
+            loop: false, // Only play once
+            autoplay: true,
+            animationData: animationDataCopy,
+            rendererSettings: {
+                progressiveLoad: false
+            }
+        };
+
+        var anim = lottie.loadAnimation(params);
+        anim.addEventListener('complete', function() {
+            onAnimationComplete(anim);
+        });
+
+        touchAnimations[id] = { container: container, animation: anim };
+    }
+
+    function onAnimationComplete(anim) {
+        completedAnimations.push(anim);
+        if (completedAnimations.length === 5) {
+            // Randomly select 1 animation to persist
+            const randomIndex = Math.floor(Math.random() * completedAnimations.length);
+            const remainingAnimation = completedAnimations[randomIndex];
+
+            // Destroy other animations
+            completedAnimations.forEach((animation, index) => {
+                if (index !== randomIndex) {
+                    animation.destroy();
+                    animation.wrapper.parentNode.removeChild(animation.wrapper);
+                }
+            });
+
+            // Keep only the remaining animation in the completedAnimations array
+            completedAnimations = [remainingAnimation];
+        }
+    }
+
+    document.addEventListener('touchstart', function(event) {
+        event.preventDefault(); // Prevent scrolling and zooming
+        var touches = event.touches;
+        for (var i = 0; i < touches.length; i++) {
+            if (!touchAnimations[touches[i].identifier]) {
+                createAnimation(touches[i].identifier, touches[i].clientX, touches[i].clientY);
+                touchCount++;
+            }
+        }
     });
-  </script>
+</script>
 </body>
 </html>
